@@ -12,6 +12,6 @@ Various scripts used in preparation of MediaEval Person Discovery 2016
   - re-encode MP4 files into same size H264 files
   - re-sample audio track into 16kHz WAV files
 
-* `batch_process_MPA.sh
+* `batch_process_MPA.sh`
 
   - re-sample MPA files into 16kHz WAV files
