@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#$ -N MPG
+#$ -N MP4
 #$ -S /bin/bash
 #$ -o /vol/work1/bredin/mediaeval/PersonDiscovery2016/logs
 #$ -e /vol/work1/bredin/mediaeval/PersonDiscovery2016/logs
@@ -25,16 +25,16 @@ if [ -n "${SGE_TASK_ID+x}" ]; then
       RELATIVE=$(head -n ${f} ${LIST} |tail -n 1)
       
       mkdir -p `dirname $PROCESSED/$RELATIVE.mp4`
-      ffmpeg -y -i $ORIGINAL/$RELATIVE -vcodec libx264 -preset medium -s 1280x720 -acodec copy $PROCESSED/$RELATIVE.mp4
+      ffmpeg -y -i $ORIGINAL/$RELATIVE -vcodec libx264 -preset medium -acodec copy $PROCESSED/$RELATIVE.mp4
       ffmpeg -y -i $PROCESSED/$RELATIVE.mp4 -ac 1 $PROCESSED/$RELATIVE.raw.wav
       sndfile-resample -to 16000 -c 0 $PROCESSED/$RELATIVE.raw.wav $PROCESSED/$RELATIVE.wav
       rm $PROCESSED/$RELATIVE.raw.wav
 
     done
 else
-    echo "What? $ORIGINAL/{VIDEO} ==> H264 1280x720 $PROCESSED/{VIDEO}.mp4"
+    echo "What? $ORIGINAL/{VIDEO} ==> H264 (same resolution) $PROCESSED/{VIDEO}.mp4"
     echo "                        ==> WAV 16kHz $PROCESSED/{VIDEO}.wav"
-    echo "for each {VIDEO} in file MPG.listing"
-    echo "How? qsub -t 1-NSPLIT `basename $0` MPG.listing"
+    echo "for each {VIDEO} in file MP4.listing"
+    echo "How? qsub -t 1-NSPLIT `basename $0` MP4.listing"
 fi
 
